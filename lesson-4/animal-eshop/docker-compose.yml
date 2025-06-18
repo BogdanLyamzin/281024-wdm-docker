@@ -1,0 +1,31 @@
+services:
+  backend:
+    build:
+      context: ./animal-eshop-backend # откуда брать файлы для образа
+      dockerfile: Dockerfile # как называется Dockerfile в папке и где его искать
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+      - DATABASE_DIALECT=postgres
+      - DATABASE_HOST=database
+      - DATABASE_PORT=5432
+      - DATABASE_NAME=animal_eshop_database
+      - DATABASE_USER=database_user
+      - DATABASE_PASSWORD=dghsdfsdghshgsada
+      - JWT_SECRET=lcyloD2eu29JChmzd0pcwo7c8O0BiGJU
+    depends_on:
+      - database
+  
+  database:
+    image: postgres:16
+    environment:
+      - POSTGRES_DB=animal_eshop_database
+      - POSTGRES_USER=database_user
+      - POSTGRES_PASSWORD=dghsdfsdghshgsada
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+  
+volumes:
+  postgres-data:
+
